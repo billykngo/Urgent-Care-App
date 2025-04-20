@@ -202,4 +202,4 @@ const clinicLocations = async (req, res) => {
   };
 }
 
-module.exports = { registerUser, loginUser, gettingApplications, sendingApplications, creatingUser, updateApplicationStatus, getStaffUsers, getStaffShifts, clinicLocations};
+module.exports = { registerUser, loginUser, /*gettingApplications, sendingApplications,*/ creatingUser, updateApplicationStatus, getStaffUsers, getStaffShifts, clinicLocations};
