@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 module.exports = (sequelize, DataTypes) => {
     const Nurses = sequelize.define("Nurses", {
       nurseid: {
@@ -7,6 +8,18 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: 'Users',      // references Users table
           key: 'userid',       // references the userid field
+=======
+module.exports = (sequelize, DataTypes)=>{
+    const Nurses = sequelize.define("Nurses",{
+        nurseid: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            references:{
+                
+                model:'Users',
+                key: 'userid'
+            },  
+>>>>>>> 0366fe55bc3752945029691784463e4a1ea98b47
         },
         onDelete: 'SET NULL',   // ✅ Important: what happens if user is deleted
         onUpdate: 'CASCADE',
