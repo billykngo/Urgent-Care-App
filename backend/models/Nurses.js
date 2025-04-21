@@ -1,27 +1,14 @@
-<<<<<<< HEAD
 module.exports = (sequelize, DataTypes) => {
     const Nurses = sequelize.define("Nurses", {
       nurseid: {
         type: DataTypes.INTEGER,
-        allowNull: true,       // ✅ MUST allow NULL because ON DELETE SET NULL
+        allowNull: true,       // MUST allow null because of ON DELETE SET NULL
         primaryKey: true,
         references: {
-          model: 'Users',      // references Users table
-          key: 'userid',       // references the userid field
-=======
-module.exports = (sequelize, DataTypes)=>{
-    const Nurses = sequelize.define("Nurses",{
-        nurseid: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            references:{
-                
-                model:'Users',
-                key: 'userid'
-            },  
->>>>>>> 0366fe55bc3752945029691784463e4a1ea98b47
+          model: 'Users',
+          key: 'userid',
         },
-        onDelete: 'SET NULL',   // ✅ Important: what happens if user is deleted
+        onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
       },
       firstname: {
@@ -49,10 +36,10 @@ module.exports = (sequelize, DataTypes)=>{
         },
       },
     }, {
-      timestamps: true,    // ✅ createdAt and updatedAt columns
+      timestamps: true,  // Adds createdAt and updatedAt
     });
   
-    // Associations (optional, if needed later)
+    // Associations
     Nurses.associate = (models) => {
       Nurses.belongsTo(models.Users, {
         foreignKey: 'nurseid',
