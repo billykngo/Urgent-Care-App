@@ -1,56 +1,54 @@
-module.exports = (sequelize, DataTypes)=>{
-    const Nurses = sequelize.define("Nurses",{
-        nurseid: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            references:{
-                model:'Users',
-                key: 'userid'
-            },
-            allowNull: true   
+module.exports = (sequelize, DataTypes) => {
+    const Nurses = sequelize.define("Nurses", {
+      nurseid: {
+        type: DataTypes.INTEGER,
+        allowNull: true,       // ✅ MUST allow NULL because ON DELETE SET NULL
+        primaryKey: true,
+        references: {
+          model: 'Users',      // references Users table
+          key: 'userid',       // references the userid field
         },
-        firstname: {
-            type: DataTypes.STRING,
-            allowNull: true
+        onDelete: 'SET NULL',   // ✅ Important: what happens if user is deleted
+        onUpdate: 'CASCADE',
+      },
+      firstname: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      lastname: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      dateofbirth: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      phonenumber: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true,
         },
-        lastname: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        dateofbirth: {
-            type: DataTypes.DATE,
-            allowNull: true,
-            validate:{
-                isDate: true
-            },
-        },
-        phonenumber: {
-            type: DataTypes.STRING,
-            allowNull: true, 
-            validate:{
-                is:{
-                    args: /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
-                    msg: 'Phone number must be in the format XXX-XXX-XXXX'
-                }
-            }
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false, // Ensures the email is required
-            unique: true, // Ensures no two users can have the same email
-            validate: {
-                isEmail: true, // Validates the email format
-                notEmpty: true, // Ensures the email is not empty
-            },
-        }
-    })
+      },
+    }, {
+      timestamps: true,    // ✅ createdAt and updatedAt columns
+    });
+  
+    // Associations (optional, if needed later)
     Nurses.associate = (models) => {
-        
-        Nurses.belongsTo(models.Users,{
-            foreignKey: 'nurseid',
-            targetKey: 'userid'
-        })
+      Nurses.belongsTo(models.Users, {
+        foreignKey: 'nurseid',
+        targetKey: 'userid',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
+      });
     };
-    
+  
     return Nurses;
-}
+  };
+  
